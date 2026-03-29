@@ -1,0 +1,113 @@
+spec_version: "0.1.0"
+name: codecourt
+version: 1.0.0
+description: >
+  Multi-agent PR review system that briefs human engineers before they decide
+  to merge. Three specialist agents analyze security, performance, and code
+  quality in parallel. Humans always make the final call.
+author: "Krishanth"
+license: MIT
+
+model:
+  preferred: claude-sonnet-4-5-20250929
+  constraints:
+    temperature: 0.2
+    max_tokens: 8192
+
+skills:
+  - analyze-security
+  - analyze-performance
+  - analyze-quality
+  - generate-briefing
+
+tools:
+  - fetch-pr
+
+agents:
+  security-scout:
+    description: Analyzes PR diffs for security vulnerabilities and exposed secrets
+    delegation:
+      mode: explicit
+      triggers:
+        - pr_review_requested
+  perf-probe:
+    description: Analyzes PR diffs for performance anti-patterns and inefficiencies
+    delegation:
+      mode: explicit
+      triggers:
+        - pr_review_requested
+  quality-guard:
+    description: Analyzes PR diffs for code quality, readability, and duplication
+    delegation:
+      mode: explicit
+      triggers:
+        - pr_review_requested
+
+delegation:
+  mode: auto
+
+runtime:
+  max_turns: 50
+  timeout: 300
+
+compliance:
+  risk_tier: standard
+  frameworks: []
+  supervision:
+    designated_supervisor: null
+    review_cadence: quarterly
+    human_in_the_loop: always
+    escalation_triggers:
+      - action_type: pr_merge_decision
+      - error_detected: true
+    override_capability: true
+    kill_switch: true
+  recordkeeping:
+    audit_logging: true
+    log_format: structured_json
+    retention_period: 90d
+    log_contents:
+      - prompts_and_responses
+      - tool_calls
+      - decision_pathways
+      - model_version
+      - timestamps
+    immutable: true
+  model_risk:
+    inventory_id: null
+    validation_cadence: annual
+    validation_type: full
+    conceptual_soundness: null
+    ongoing_monitoring: true
+    outcomes_analysis: true
+    drift_detection: true
+    parallel_testing: false
+  data_governance:
+    pii_handling: redact
+    data_classification: confidential
+    consent_required: false
+    cross_border: false
+    bias_testing: false
+    lda_search: false
+  communications:
+    type: correspondence
+    pre_review_required: false
+    fair_balanced: true
+    no_misleading: true
+    disclosures_required: false
+  vendor_management:
+    due_diligence_complete: false
+    soc_report_required: false
+    vendor_ai_notification: true
+    subcontractor_assessment: false
+
+tags:
+  - code-review
+  - pull-request
+  - multi-agent
+  - developer-tools
+  - git-native
+
+metadata:
+  project: codecourt
+  data_sensitivity: low

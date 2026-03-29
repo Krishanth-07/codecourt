@@ -1,0 +1,11 @@
+name: fetch-pr
+description: "Fetches a pull request diff and metadata from GitHub"
+version: 1.0.0
+input_schema:
+  type: object
+  properties:
+    pr_url:
+      type: string
+      description: "Full GitHub PR URL"
+  required:
+    - pr_url

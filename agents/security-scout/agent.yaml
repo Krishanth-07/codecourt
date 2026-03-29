@@ -1,0 +1,15 @@
+spec_version: "0.1.0"
+name: security-scout
+version: 1.0.0
+description: "Analyzes PR diffs for security vulnerabilities, exposed secrets, and injection risks."
+model:
+  preferred: claude-sonnet-4-5-20250929
+  constraints:
+    temperature: 0.1
+    max_tokens: 2048
+runtime:
+  max_turns: 10
+  timeout: 60
+tags:
+  - security
+  - code-review

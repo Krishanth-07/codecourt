@@ -1,35 +1,35 @@
-# CodeCourt ���️
+# CodeCourt
 
 > A multi-agent PR review system that briefs human engineers before they decide to merge.
 
 ## The Problem
 
-Engineers merge code every day under time pressure. A single missed SQL injection, a memory leak, or a poorly named function can cost hours of debugging — or worse, a production incident. Human reviewers are good but not infallible. They get tired. They miss things.
+Engineers merge code every day under time pressure. A single missed SQL injection, a memory leak, or a poorly named function can cost hours of debugging or worse, a production incident. Human reviewers are good but not infallible. They get tired. They miss things.
 
 ## The Solution
 
 CodeCourt deploys three specialist agents in parallel the moment a PR is ready for review:
 
-- ��� **SecurityScout** — hunts for vulnerabilities, exposed secrets, and injection risks
-- ⚡ **PerfProbe** — flags memory leaks, inefficient queries, and blocking operations
-- ��� **QualityGuard** — catches poor naming, duplication, and code smells
+- **SecurityScout** - hunts for vulnerabilities, exposed secrets, and injection risks
+- **PerfProbe** - flags memory leaks, inefficient queries, and blocking operations
+- **QualityGuard** - catches poor naming, duplication, and code smells
 
-A fourth agent — **CodeCourt itself** — aggregates all findings into a structured briefing and hands it to the human engineer. The human always makes the final call.
+A fourth agent, CodeCourt itself, aggregates all findings into a structured briefing and hands it to the human engineer. The human always makes the final call.
 
 ## How It Works
 ```
 PR Submitted
-     │
-     ├──► SecurityScout  ──┐
-     ├──► PerfProbe      ──┼──► CodeCourt Briefing ──► Human Decision
-     └──► QualityGuard   ──┘
+     |
+     |---> SecurityScout  --|
+     |---> PerfProbe      --|---> CodeCourt Briefing ---> Human Decision
+     |---> QualityGuard   --|
 ```
 
 ## Built With
 
-- [gitagent](https://github.com/open-gitagent/gitagent) — git-native agent standard
-- [gitclaw](https://github.com/open-gitagent/gitclaw) — agent runtime
-- Claude Sonnet — underlying model
+- gitagent - git-native agent standard
+- gitclaw - agent runtime
+- Claude Sonnet - underlying model
 
 ## Quick Start
 ```bash
@@ -79,27 +79,27 @@ Author: dev-user
 Files changed: 4
 
 ### Summary
-- ��� CRITICAL: 1
-- ��� HIGH: 2
-- ��� MEDIUM: 1
-- ��� LOW: 3
+- CRITICAL: 1
+- HIGH: 2
+- MEDIUM: 1
+- LOW: 3
 
 ### Security Findings (SecurityScout)
-### CRITICAL — Security
-- **File**: middleware/auth.js:23
-- **Issue**: Hardcoded JWT secret key found
-- **Why it matters**: Anyone with repo access can forge tokens
-- **Recommended action**: Move to environment variable immediately
+### CRITICAL - Security
+- File: middleware/auth.js:23
+- Issue: Hardcoded JWT secret key found
+- Why it matters: Anyone with repo access can forge tokens
+- Recommended action: Move to environment variable immediately
 
 ### Performance Findings (PerfProbe)
-✓ No performance issues found in this diff.
+No performance issues found in this diff.
 
 ### Quality Findings (QualityGuard)
-### MEDIUM — Quality
-- **File**: middleware/auth.js:45
-- **Issue**: Function handleAuth() does 6 different things
-- **Why it matters**: Hard to test and maintain
-- **Recommended action**: Split into smaller single-responsibility functions
+### MEDIUM - Quality
+- File: middleware/auth.js:45
+- Issue: Function handleAuth() does 6 different things
+- Why it matters: Hard to test and maintain
+- Recommended action: Split into smaller single-responsibility functions
 
 ---
 HUMAN DECISION REQUIRED: [ Merge ] [ Request Changes ] [ Reject ]
@@ -107,7 +107,7 @@ HUMAN DECISION REQUIRED: [ Merge ] [ Request Changes ] [ Reject ]
 
 ## Design Principles
 
-- **Human accountability first** — CodeCourt briefs, engineers decide. Always.
-- **Separation of concerns** — Each specialist agent stays in its lane
-- **Evidence-based findings** — No finding without a file and line reference
-- **Compliance built in** — Full audit logging, human-in-the-loop enforcement
+- **Human accountability first** - CodeCourt briefs, engineers decide. Always.
+- **Separation of concerns** - Each specialist agent stays in its lane
+- **Evidence-based findings** - No finding without a file and line reference
+- **Compliance built in** - Full audit logging, human-in-the-loop enforcement

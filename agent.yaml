@@ -9,7 +9,7 @@ author: "Krishanth"
 license: MIT
 
 model:
-  preferred: claude-sonnet-4-5-20250929
+  preferred: anthropic:claude-sonnet-4-5-20250929
   constraints:
     temperature: 0.2
     max_tokens: 8192
